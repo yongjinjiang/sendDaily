@@ -3,6 +3,17 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 import os.path
+from dotenv import load_dotenv
+import os
+
+# Check if running in GitHub Actions
+if not os.getenv("GITHUB_ACTIONS"):
+    # Load environment variables from .env file if not running in GitHub Actions
+    print("Running locally. Loading environment variables from .env file.")
+    load_dotenv()
+else:
+    print("Running in GitHub Actions. Skipping .env loading.")
+
 
 def authenticate_gmail():
     SCOPES = ['https://www.googleapis.com/auth/gmail.send']
@@ -43,9 +54,15 @@ if __name__ == '__main__':
     creds = authenticate_gmail()
     service = build('gmail', 'v1', credentials=creds)
 
-    # Set up your email details
-    sender_email = "yjjiangphysics@gmail.com"
-    recipient_email  = "jhuimin1950@gmail.com"
+    # Read email addresses from environment variables
+    sender_email = os.getenv("SENDER_EMAIL")
+    recipient_email = os.getenv("RECIPIENT_EMAIL")
+
+    # Check if the environment variables are set
+    if not sender_email or not recipient_email:
+        raise ValueError("SENDER_EMAIL or RECIPIENT_EMAIL is not set in the environment.")
+
+
 
     # Create the email content
     subject = "Daily Email"

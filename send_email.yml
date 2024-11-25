@@ -37,3 +37,6 @@ jobs:
 
     - name: Run email script
       run: python send_email.py
+      env:
+        SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+        RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
