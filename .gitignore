@@ -3,4 +3,4 @@
 # Ignore environment files
 .env
 # Ignore draft .ipynb files for local development
-.ipynb
+*.ipynb
