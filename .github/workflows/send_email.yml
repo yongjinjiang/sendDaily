@@ -33,8 +33,10 @@ jobs:
         GMAIL_CREDENTIALS: ${{ secrets.GMAIL_CREDENTIALS }}
 
     - name: Add token.json (if provided)
-      if: secrets.TOKEN_JSON != ''
-      run: echo "$TOKEN_JSON" > token.json
+      run: |
+        if [ -n "$TOKEN_JSON" ]; then
+          echo "$TOKEN_JSON" > token.json
+        fi
       env:
         TOKEN_JSON: ${{ secrets.TOKEN_JSON }}
 
