@@ -1,5 +1,5 @@
 # Ignore sensitive files
-*.json
+*.jsongit 
 # Ignore environment files
 .env
 # Ignore draft .ipynb files for local development
