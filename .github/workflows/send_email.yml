@@ -25,7 +25,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install --no-cache-dir google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client
+        pip install --no-cache-dir google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client python-dotenv
 
     - name: Add credentials.json
       run: echo "$GMAIL_CREDENTIALS" > credentials.json
