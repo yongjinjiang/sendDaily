@@ -70,7 +70,7 @@ jobs:
       run: |
         if [ -n "$GMAIL_CREDENTIALS" ]; then
           echo "$GMAIL_CREDENTIALS" > gmail_credentials.json
-          echo "SHA256 hash of GMAIL_CREDENTIALS: $(sha256sum gmail_credentials.json | awk '{print $1}')"
+          echo "SHA256 hash of GMAIL_CREDENTIALS: $(shasum -a 256  gmail_credentials.json | awk '{print $1}')"
         else
           echo "GMAIL_CREDENTIALS is empty or not set"
           exit 1
