@@ -57,6 +57,7 @@ jobs:
       run: |
         if [ -f token.json ]; then
           echo "token.json exists and has a size of $(wc -c < token.json) bytes"
+          echo "$TOKEN_JSON" 
         else
           echo "token.json does not exist"
           exit 1
