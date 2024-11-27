@@ -44,6 +44,8 @@ jobs:
       run: |
         if [ -n "$TOKEN_JSON" ]; then
           echo "$TOKEN_JSON" > token.json
+          echo  "Token _JSON is : $TOKEN_JSON" 
+          echo "SHA256 hash of Token $(sha256sum token.json | awk '{print $1}')"
           echo "Token content written to token.json"
         else
           echo "TOKEN_JSON is empty or not set"
