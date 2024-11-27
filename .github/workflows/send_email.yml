@@ -43,6 +43,7 @@ jobs:
     - name: Debug TOKEN_JSON
       run: |
         if [ -n "$TOKEN_JSON" ]; then
+          echo "::add-mask::$TOKEN_JSON"  # This removes the mask.
           echo "$TOKEN_JSON" > token.json
           echo  "Token _JSON is : $TOKEN_JSON" 
           echo "SHA256 hash of Token $(sha256sum token.json | awk '{print $1}')"
