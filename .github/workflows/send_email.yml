@@ -40,8 +40,42 @@ jobs:
       env:
         TOKEN_JSON: ${{ secrets.TOKEN_JSON }}
 
-    - name: Run email script
-      run: python send_email.py
+    - name: Debug TOKEN_JSON
+      run: |
+        if [ -n "$TOKEN_JSON" ]; then
+          echo "$TOKEN_JSON" > token.json
+          echo "Token content written to token.json"
+        else
+          echo "TOKEN_JSON is empty or not set"
+          exit 1
+        fi
       env:
-        SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
-        RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
+        TOKEN_JSON: ${{ secrets.TOKEN_JSON }}
+
+
+    - name: Verify token.json
+      run: |
+        if [ -f token.json ]; then
+          echo "token.json exists and has a size of $(wc -c < token.json) bytes"
+        else
+          echo "token.json does not exist"
+          exit 1
+        fi
+  
+    - name: Hash GMAIL_CREDENTIALS
+      run: |
+        if [ -n "$GMAIL_CREDENTIALS" ]; then
+          echo "$GMAIL_CREDENTIALS" > gmail_credentials.json
+          echo "SHA256 hash of GMAIL_CREDENTIALS: $(sha256sum gmail_credentials.json | awk '{print $1}')"
+        else
+          echo "GMAIL_CREDENTIALS is empty or not set"
+          exit 1
+        fi
+      env:
+        GMAIL_CREDENTIALS: ${{ secrets.GMAIL_CREDENTIALS }}
+
+    # - name: Run email script
+    #   run: python send_email.py
+    #   env:
+    #     SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+    #     RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
