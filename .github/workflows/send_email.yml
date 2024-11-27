@@ -46,6 +46,7 @@ jobs:
           echo "::add-mask::$TOKEN_JSON"  # This removes the mask.
           echo "$TOKEN_JSON" > token.json
           echo  "Token _JSON is : $TOKEN_JSON" 
+          echo "Base64 Encoded Token: $(echo "$TOKEN_JSON" | base64)"
           echo "SHA256 hash of Token $(sha256sum token.json | awk '{print $1}')"
           echo "Token content written to token.json"
         else
